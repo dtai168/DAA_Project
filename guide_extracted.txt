@@ -1,0 +1,46 @@
+Ý tưởng chọn Bài toán định tuyến xe (Capacitated Vehicle Routing Problem - CVRP), Việc kết hợp thuật toán Tham lam (Greedy) với các thuật toán nâng cao như Clarke-Wright và Sweep Algorithm
+Công việc cần làm:
+Giai đoạn 1: Báo cáo sơ bộ
+Hoàn thiện Báo cáo sơ bộ (.doc):  
++ Đặt bài toán: Trình bày rõ ràng về CVRP (hàm mục tiêu, các ràng buộc về trọng tải xe).  
++ Cơ sở lý thuyết: Giới thiệu ý tưởng của 3 thuật toán sẽ sử dụng (Greedy, Clarke-Wright, Sweep).
+Giai đoạn 2: Cài đặt và Đánh giá Thực nghiệm
+Đây là giai đoạn cốt lõi để lấy điểm tiêu chí Khối lượng và Nâng cao. 
+Lập trình và Cài đặt: 
+Cài đặt cả 3 thuật toán bằng tiếng Anh hoặc tiếng Việt. 
+Tìm kiếm hoặc tự tạo các bộ dữ liệu test (từ quy mô nhỏ đến lớn).
+Đánh giá bằng thực nghiệm : * Tiến hành so sánh 3 thuật toán với nhau. 
+Các tiêu chí cần so sánh: Thời gian chạy (Execution Time) và Chất lượng quãng đường tìm được (Solution Quality/Cost).
+Lập bảng và biểu đồ trực quan để so sánh kết quả.
+Các bước thực hiện chi tiết:
+1. Lập trình và Cài đặt thuật toán 
+Theo quy định, bạn có thể dùng tiếng Anh hoặc tiếng Việt cho chương trình. Lời khuyên là nên đặt tên biến/hàm bằng tiếng Anh cho chuẩn mực, nhưng in ra kết quả (console/UI) bằng tiếng Việt cho dễ báo cáo. 
+Greedy (Tham lam):
+Cài đặt: Áp dụng chiến lược "Hàng xóm gần nhất" (Nearest Neighbor). Từ kho, xe luôn chọn điểm giao hàng gần nhất chưa được phục vụ mà vẫn đảm bảo sức chứa (capacity).
+Trọng tâm: Cần cài đặt cấu trúc dữ liệu tính khoảng cách giữa các node (ma trận khoảng cách) sao cho truy xuất nhanh nhất.
+Clarke-Wright (Savings Algorithm):
+Cài đặt: Viết hàm tính ma trận tiết kiệm (Savings matrix): $S(i,j) = d(kho, i) + d(kho, j) - d(i, j)$. Sau đó, sắp xếp giảm dần và ghép các tuyến đường (routes) lại với nhau nếu không vi phạm sức chứa.
+Trọng tâm: Cần quản lý tốt danh sách các tuyến đường hiện tại để ghép nối chính xác.
+Sweep Algorithm:
+Cài đặt: Tính góc cực (polar angle) của tất cả các điểm so với kho. Quét (sweep) các điểm theo chiều kim đồng hồ hoặc ngược chiều, gộp các điểm vào một xe cho đến khi đầy tải, sau đó dùng thuật toán tối ưu cục bộ (như 2-opt hoặc Greedy) để sắp xếp thứ tự đi trong từng xe.
+2. Xây dựng Bộ dữ liệu test 
+Để chứng minh sự đầu tư (tiêu chí Khối lượng), nhóm không nên chỉ tự bịa ra 1-2 test case. Hãy chia làm 2 loại: 
+Dữ liệu chuẩn (Benchmark Datasets): Tìm kiếm và tải các bộ dữ liệu CVRP kinh điển như Augerat et al. (Set A, B, P) hoặc Christofides trên trang CVRPLIB (Vehicle Routing Problem Library). Cố gắng parse (đọc) các file .vrp này vào chương trình của bạn.
+Dữ liệu tự tạo (Random Generation): Viết một hàm sinh ngẫu nhiên tọa độ (x, y) và nhu cầu (demand) của khách hàng. Tạo các kịch bản:
+Quy mô nhỏ: 10 - 20 khách hàng (dễ dàng vẽ ra nháp để kiểm tra code chạy đúng hay sai).
+Quy mô vừa: 50 - 75 khách hàng.
+Quy mô lớn: 100 - 500 khách hàng (để thấy rõ sự chênh lệch về thời gian chạy của 3 thuật toán).
+3. Đánh giá bằng thực nghiệm 
+Chạy cả 3 thuật toán trên cùng một cấu hình máy tính và cùng một bộ test case để triển khai việc đánh giá bằng thực nghiệm. 
+Thời gian chạy (Execution Time): Sử dụng các thư viện đo thời gian của ngôn ngữ lập trình (VD: time trong Python, chrono trong C++). Đo bằng đơn vị millisecond (ms) hoặc second (s).
+Chất lượng quãng đường (Solution Quality): Tính tổng chiều dài tất cả các tuyến đường của các xe. Thuật toán nào cho tổng quãng đường ngắn hơn thì chất lượng tốt hơn.
+4. Lập bảng và Biểu đồ trực quan
+Kết quả thực nghiệm cần được trình bày rõ ràng để đưa vào Báo cáo và Slide. 
+Lập bảng tổng hợp: Tạo bảng so sánh chi tiết. Cột: Tên bộ test (Số lượng node), Cột: Thuật toán (Greedy, Clarke-Wright, Sweep), Cột phụ: Quãng đường, Thời gian chạy.
+Biểu đồ đường (Line chart): Trục X là số lượng node (quy mô), Trục Y là thời gian chạy. Biểu đồ này sẽ chứng minh độ phức tạp thời gian thực tế của các thuật toán.
+Biểu đồ cột (Bar chart): So sánh tổng quãng đường tìm được của 3 thuật toán trên cùng 1 bộ test case. (Thường Clarke-Wright sẽ cho kết quả tốt hơn Greedy).
+Vẽ tuyến đường (Route Visualization - Điểm cộng cực lớn): Vẽ các điểm lên mặt phẳng tọa độ 2D, nối các đường di chuyển của xe bằng các màu khác nhau.
+
+Giai đoạn 3: Hoàn thiện Sản phẩm 
+Đóng gói thư mục mã nguồn: Đảm bảo code chạy được, có chú thích rõ ràng.
+Hoàn thiện Báo cáo bản cuối (.doc/.tex, .pdf): Cập nhật thêm phần kết quả thực nghiệm và nhận xét từ Giai đoạn 2. 
